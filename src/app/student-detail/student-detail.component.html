@@ -1,0 +1,10 @@
+<p>student-detail works!</p>
+<mat-grid-list cols="3" rowHeight="3:1">
+    <mat-grid-tile *ngFor="let student of studentsData">
+        
+        <mat-card>
+            <h1 style="margin: 10px;"> {{ student.name}} </h1>
+            <p style="margin: 10px;">Age:  {{ student.age}} </p>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

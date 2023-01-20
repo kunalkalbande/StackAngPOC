@@ -1,0 +1,56 @@
+<section fxLayout="column" fxFlexAlign="stretch"> 
+<div id="material-example">
+
+   
+   
+     
+     <br/>
+     <mat-card>
+      <mat-card-actions align="end">
+      <button  mat-raised-button color="primary"  (click)="openDialog()">Create</button>
+      </mat-card-actions>
+    
+   
+  <table mat-table [dataSource]="studentsData" class="mat-elevation-z8" >
+    <ng-container [matColumnDef]="col.key" *ngFor="let col of columnsSchema">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ col.label }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div [ngSwitch]="col.type" *ngIf="!element.isEdit">
+          <div class="btn-edit" *ngSwitchCase="'isEdit'">
+            <mat-card-actions align="end">
+              <button mat-button (click)="element.isEdit = !element.isEdit" >Edit</button>
+              <button mat-button (click)="onDeleteClick(element)" color="warn" >Delete</button>
+            </mat-card-actions>
+          </div>
+          <span *ngSwitchDefault>
+            {{ element[col.key] }}
+          </span>
+        </div>
+        <div *ngIf="element.isEdit">
+          <div class="btn-edit" *ngIf="col.key === 'isEdit'; else dataField">
+            <mat-card-actions align="end">
+            <button mat-button (click)="onDoneClick(element)" color="primary">Done</button>
+            <button mat-button (click)="element.isEdit = !element.isEdit" >Cancel</button>
+            </mat-card-actions>
+          </div>
+          <ng-template #dataField>
+            <mat-form-field>
+              <input
+                [type]="col.type"
+                matInput
+                [(ngModel)]="element[col.key]"
+              />
+            </mat-form-field>
+          </ng-template>
+        </div>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  </mat-card>
+ 
+  </div>
+</section>

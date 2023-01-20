@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>Add Student</h1>
+<div mat-dialog-content>
+  
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="data.name">
+</div>
+<div mat-dialog-content>
+  
+  <mat-label>Age</mat-label>
+  <input type="number" matInput [(ngModel)]="data.age">
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial color="primary">Ok</button>
+</div>

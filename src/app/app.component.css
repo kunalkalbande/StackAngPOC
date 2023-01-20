@@ -1,0 +1,26 @@
+.example-card{
+    display:inline-block;
+}
+.example-button{
+    margin: 5px;
+    align-self: flex-end;
+    justify-content: flex-end;
+    justify-items: flex-end;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+
+  mat-sidenav-container, mat-sidenav-content, mat-sidenav {
+    height: 100%;
+}
+
+mat-sidenav {
+    width: 250px;
+}
+
+main {
+    padding: 10px;
+}
