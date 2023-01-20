@@ -1,10 +1,12 @@
-import { Component,createComponent,OnInit } from '@angular/core';
+import { Component,AfterViewInit,OnInit, ViewChild } from '@angular/core';
 import { ApiService } from '../api.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateComponent} from '../create/create.component';
 import {ConfirmationComponent} from '../confirmation/confirmation.component';
 import { MatTableDataSource } from '@angular/material/table';
 import { IStudent } from '../models/student';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
 const COLUMNS_SCHEMA = [
   {
       key: "name",
@@ -28,7 +30,7 @@ const COLUMNS_SCHEMA = [
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent  implements OnInit {
+export class HomeComponent  implements OnInit,AfterViewInit {
   title = 'Students';
   studentsData= new MatTableDataSource<IStudent>();
   columndefs : any[] = ['name','age'];
@@ -36,7 +38,9 @@ export class HomeComponent  implements OnInit {
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key);
   name:any;
   age:any;
- 
+  @ViewChild(MatSort, { static: false })
+  sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   constructor(private api: ApiService,public dialog: MatDialog) { }
   ngOnInit() {
     this.api.getStudents().subscribe((data:IStudent[]) => {
@@ -44,6 +48,13 @@ export class HomeComponent  implements OnInit {
       this.studentsData.data = data;
      
     });
+  }
+  ngAfterViewInit(): void {
+    this.studentsData.sort=this.sort;
+    this.studentsData.paginator=this.paginator;
+  }
+  public doFilter = (value: string) => {
+    this.studentsData.filter = value.trim().toLocaleLowerCase();
   }
   openDialog(): void {
     let dialogRef = this.dialog.open(CreateComponent, {

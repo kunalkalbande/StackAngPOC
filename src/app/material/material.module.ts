@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import {
   MatButtonModule
   } from '@angular/material/button';
@@ -22,9 +22,14 @@ import{MatCheckboxModule} from '@angular/material/checkbox'
 import { MatSidenavModule } from '@angular/material/sidenav';
 import {MatListModule} from'@angular/material/list';
 import { MatGridListModule} from '@angular/material/grid-list';
+import { MatSortModule } from '@angular/material/sort';
+import {MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [],
   imports: [
+    MatPaginatorModule,
+    MatSortModule,
+    MatTabsModule,
     MatGridListModule,
     MatListModule,
     MatSidenavModule,
@@ -41,6 +46,9 @@ import { MatGridListModule} from '@angular/material/grid-list';
     MatFormFieldModule
   ],
   exports: [
+    MatPaginatorModule,
+    MatSortModule,
+    MatTabsModule,
     MatGridListModule,
     MatListModule,
     MatSidenavModule,
