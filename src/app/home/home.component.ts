@@ -3,7 +3,8 @@ import { ApiService } from '../api.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {CreateComponent} from '../create/create.component';
 import {ConfirmationComponent} from '../confirmation/confirmation.component';
-
+import { MatTableDataSource } from '@angular/material/table';
+import { IStudent } from '../models/student';
 const COLUMNS_SCHEMA = [
   {
       key: "name",
@@ -29,7 +30,7 @@ const COLUMNS_SCHEMA = [
 })
 export class HomeComponent  implements OnInit {
   title = 'Students';
-  studentsData:any;
+  studentsData= new MatTableDataSource<IStudent>();
   columndefs : any[] = ['name','age'];
   columnsSchema: any = COLUMNS_SCHEMA;
   displayedColumns: string[] = COLUMNS_SCHEMA.map((col) => col.key);
@@ -38,9 +39,9 @@ export class HomeComponent  implements OnInit {
  
   constructor(private api: ApiService,public dialog: MatDialog) { }
   ngOnInit() {
-    this.api.getStudents().subscribe((data) => {
+    this.api.getStudents().subscribe((data:IStudent[]) => {
       console.log(data);
-      this.studentsData = data;
+      this.studentsData.data = data;
      
     });
   }
@@ -56,12 +57,13 @@ export class HomeComponent  implements OnInit {
       this.name = result.name;
       this.api.postStudent(result).subscribe((data)=>{
         console.log(data);
+        this.api.getStudents().subscribe((data:IStudent[]) => {
+          console.log(data);
+          this.studentsData.data = data;
+         
+        });
       });
-      this.api.getStudents().subscribe((data) => {
-        console.log(data);
-        this.studentsData = data;
-       
-      });
+     
     });
   }
   onDoneClick(element:any):void{
@@ -84,9 +86,9 @@ export class HomeComponent  implements OnInit {
       if (result === true) {
         console.log('The dialog was closed');
         this.api.deleteStudent(element).subscribe(() => {
-          this.api.getStudents().subscribe((data) => {
+          this.api.getStudents().subscribe((data:IStudent[]) => {
             console.log(data);
-            this.studentsData = data;
+            this.studentsData.data = data;
            
           });
 
