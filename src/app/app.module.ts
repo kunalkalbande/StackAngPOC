@@ -17,6 +17,8 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import {StudentDetailComponent} from './student-detail/student-detail.component'
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TabComponent } from './tab/tab.component';
+import { ParentComponent } from './parent/parent.component';
+import { ChildComponent } from './child/child.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -27,7 +29,9 @@ import { TabComponent } from './tab/tab.component';
     CreateComponent,
     HeaderComponent,
     SidenavListComponent,
-    TabComponent
+    TabComponent,
+    ParentComponent,
+    ChildComponent
     
   ],
   imports: [

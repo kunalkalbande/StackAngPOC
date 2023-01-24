@@ -1,0 +1,8 @@
+<p>parent works!</p>
+<app-child (selectedValues)="OnSelectedValueChanged($event)"></app-child>
+
+<mat-list>
+    <mat-list-item *ngFor="let child of childSelectedValue">
+        <h3 matListItemTitle>{{child.viewValue}}</h3>
+    </mat-list-item>
+</mat-list>
